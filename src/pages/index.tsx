@@ -13,7 +13,7 @@ const myAlbumsConfig = {
 };
 
 const homeConfig = {
-  component: <p>Feed</p>,
+  component: <h1 className="text-3xl font-bold underline">Hello world!</h1>,
   name: "Feed",
   id: "feed",
   path: "/",
