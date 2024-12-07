@@ -1,3 +1,5 @@
+import { Feed } from "../views/feed/Feed";
+
 export interface PageConfig {
   component: JSX.Element;
   name: string;
@@ -13,7 +15,7 @@ const myAlbumsConfig = {
 };
 
 const homeConfig = {
-  component: <h1 className="text-3xl font-bold underline">Hello world!</h1>,
+  component: <Feed />,
   name: "Feed",
   id: "feed",
   path: "/",
