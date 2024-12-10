@@ -3,7 +3,6 @@ import { getPhotosRepository } from "./FeedRepository";
 
 export const getPhotosService = async (): Promise<Photo[]> => {
   const { data } = await getPhotosRepository();
-  console.log(data);
   const feedArray = data.reduce((acc, album) => {
     return [
       ...acc,

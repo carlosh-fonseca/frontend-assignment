@@ -1,4 +1,6 @@
-import { Feed } from "../views/feed/Feed";
+import { albumConfig } from "./album";
+import { albumsConfig } from "./albums";
+import { feedConfig } from "./feed";
 
 export interface PageConfig {
   component: JSX.Element;
@@ -7,18 +9,4 @@ export interface PageConfig {
   path: string;
 }
 
-const myAlbumsConfig = {
-  component: <p>My Albums</p>,
-  name: "My Albums",
-  id: "MyAlbums",
-  path: "/my-albums",
-};
-
-const homeConfig = {
-  component: <Feed />,
-  name: "Feed",
-  id: "feed",
-  path: "/",
-};
-
-export const pages: PageConfig[] = [myAlbumsConfig, homeConfig];
+export const pages: PageConfig[] = [albumsConfig, feedConfig, albumConfig];
