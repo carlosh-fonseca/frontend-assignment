@@ -1,18 +1,20 @@
 import { NavLink } from "react-router-dom";
-import { Button } from "../Button/Button";
+import { AddPhotoIcon } from "../../assets/icons/AddPhotoIcon";
+import { HomeIcon } from "../../assets/icons/HomeIcon";
+import { IconButton } from "../IconButton/IconButton";
 
 export function Header() {
   return (
     <div className="sticky flex flex-row p-4 top-0 left-0 right-0 gap-4 bg-slate-400 w-screen h-16">
       <NavLink to={"/"}>
-        <Button className="flex-none">Feed</Button>
+        <IconButton icon={<HomeIcon />} title="Feed" />
       </NavLink>
       <div className="title-wrapper grow text-center font-bold text-xl">
         App Title
       </div>
-      <Button className="flex-none">Add Photo</Button>
+      <IconButton icon={<AddPhotoIcon />} title="Add Photo" />
       <NavLink to={"/my-albums"}>
-        <Button className="flex-none">My Albums</Button>
+        <IconButton icon={<AddPhotoIcon />} title="My Albums" />
       </NavLink>
     </div>
   );
