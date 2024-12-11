@@ -10,8 +10,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     errorElement: (
-      <div>
-        Pagina não enontrada <NavLink to="/">Voltaar para o Feed</NavLink>
+      <div className="flex w-screen h-screen">
+        <div className="m-auto">
+          Page not found <NavLink to="/">Go to Feed</NavLink>
+        </div>
       </div>
     ),
     children: [
