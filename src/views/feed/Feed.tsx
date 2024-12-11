@@ -32,22 +32,23 @@ export function Feed() {
     }
   };
 
-  window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (nextPage && !isLoading) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [nextPage]);
+  }, [nextPage, isLoading]);
 
   useEffect(() => {
     if (data) {
-      setFeedData([...feedData, ...data]);
+      setFeedData((prevFeedData) => [...prevFeedData, ...data]);
       setNextPage(false);
     }
   }, [data]);
-
-  useEffect(() => () => setFeedData([]), []);
 
   if (isLoading) {
     return (
@@ -68,9 +69,15 @@ export function Feed() {
             src={photo.url}
             alt={photo.title}
             caption={photo.title}
-            authorName={photo.user?.name}
-            authorUsername={photo.user?.username}
-            authorId={photo.user?.id}
+            author={
+              photo.user
+                ? {
+                    name: photo.user.name,
+                    username: photo.user.username,
+                    id: photo.user.id,
+                  }
+                : undefined
+            }
           />
         </div>
       ))}

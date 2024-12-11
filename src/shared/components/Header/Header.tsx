@@ -5,15 +5,18 @@ import { HomeIcon } from '../../assets/icons/HomeIcon';
 import { PhotoAlbumsIcon } from '../../assets/icons/PhotoAlbumsIcon';
 import { useModal } from '../../hooks/useModal';
 import { IconButton } from '../IconButton/IconButton';
+import { useCallback } from 'react';
 
 export function Header() {
   const { openModal } = useModal();
-  const handleAddPhotoClick = () => {
+
+  const handleAddPhotoClick = useCallback(() => {
     openModal({
       title: 'Add New Photo',
       content: <AddPhoto />,
     });
-  };
+  }, [openModal]);
+
   return (
     <div className="sticky flex flex-row p-4 top-0 left-0 right-0 gap-4 bg-slate-400 w-screen h-16">
       <NavLink to={'/'}>

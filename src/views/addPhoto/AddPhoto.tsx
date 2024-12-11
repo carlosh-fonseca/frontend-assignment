@@ -14,42 +14,48 @@ export function AddPhoto() {
   const { openAlert } = useAlert();
   const { setApiState } = useContext(ApiContext);
 
-  const [url, setUrl] = useState('');
-  const [title, setTitle] = useState('');
-  const [isExistingAlbum, setIsExistingAlbum] = useState(false);
-  const [nameNewAlbum, setNameNewAlbum] = useState('');
-  const [existingAlbum, setExistingAlbum] = useState(1);
+  const [formState, setFormState] = useState({
+    url: '',
+    title: '',
+    isExistingAlbum: false,
+    nameNewAlbum: '',
+    existingAlbum: 1,
+  });
+
+  const updateApiState = (res: Photo) => {
+    setApiState((currentState) => {
+      let newAddedAlbums = [...currentState.addedAlbums];
+      if (!formState.isExistingAlbum) {
+        newAddedAlbums = [
+          {
+            id: res.albumId,
+            title: formState.nameNewAlbum,
+            coverPhoto: res.url,
+          },
+          ...currentState.addedAlbums,
+        ];
+      }
+      return {
+        ...currentState,
+        addedAlbums: newAddedAlbums,
+        addedPhotos: [
+          {
+            albumId: res.albumId,
+            id: res.id,
+            title: res.title,
+            url: res.url,
+            thumbnailUrl: res.url,
+          },
+          ...currentState.addedPhotos,
+        ],
+      };
+    });
+  };
 
   const { mutate: postNewPhoto } = useSendData(
     postNewPhotoService,
     (res: Photo) => {
-      setApiState((currentState) => {
-        let newAddedAlbums = [...currentState.addedAlbums];
-        if (!isExistingAlbum) {
-          newAddedAlbums = [
-            {
-              id: res.albumId,
-              title: nameNewAlbum,
-              coverPhoto: res.url,
-            },
-            ...currentState.addedAlbums,
-          ];
-        }
-        return {
-          ...currentState,
-          addedAlbums: newAddedAlbums,
-          addedPhotos: [
-            {
-              albumId: res.albumId,
-              id: res.id,
-              title: res.title,
-              url: res.url,
-              thumbnailUrl: res.url,
-            },
-            ...currentState.addedPhotos,
-          ],
-        };
-      });
+      updateApiState(res);
       openAlert({ message: 'Photo added successfully', type: 'success' });
     },
     () => {
@@ -65,9 +71,11 @@ export function AddPhoto() {
     const randomNewAlbumId = generateRandomId();
     postNewPhoto({
       photo: {
-        title: title,
-        url: url,
-        albumId: isExistingAlbum ? Number(existingAlbum) : randomNewAlbumId,
+        title: formState.title,
+        url: formState.url,
+        albumId: formState.isExistingAlbum
+          ? Number(formState.existingAlbum)
+          : randomNewAlbumId,
       },
       fakeError: isError,
     });
@@ -82,8 +90,8 @@ export function AddPhoto() {
           className="border rounded border-slate-400"
           id="url-new-photo"
           type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          value={formState.url}
+          onChange={(e) => setFormState({ ...formState, url: e.target.value })}
         />
       </div>
       <div className="my-2">
@@ -92,8 +100,10 @@ export function AddPhoto() {
           className="border rounded border-slate-400"
           id="title-new-photo"
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formState.title}
+          onChange={(e) =>
+            setFormState({ ...formState, title: e.target.value })
+          }
         />
       </div>
       <div className="my-2">
@@ -101,10 +111,14 @@ export function AddPhoto() {
         <input
           id="is-existing-album"
           type="checkbox"
-          checked={isExistingAlbum}
+          checked={formState.isExistingAlbum}
           onChange={() => {
-            if (!isExistingAlbum) setNameNewAlbum('');
-            setIsExistingAlbum(!isExistingAlbum);
+            if (!formState.isExistingAlbum)
+              setFormState({ ...formState, nameNewAlbum: '' });
+            setFormState({
+              ...formState,
+              isExistingAlbum: !formState.isExistingAlbum,
+            });
           }}
         />
       </div>
@@ -114,18 +128,25 @@ export function AddPhoto() {
           className="border rounded border-slate-400"
           id="title-new-album"
           type="text"
-          value={nameNewAlbum}
-          onChange={(e) => setNameNewAlbum(e.target.value)}
-          disabled={isExistingAlbum}
+          value={formState.nameNewAlbum}
+          onChange={(e) =>
+            setFormState({ ...formState, nameNewAlbum: e.target.value })
+          }
+          disabled={formState.isExistingAlbum}
         />
       </div>
       <div className="my-2">
         <label htmlFor="existing-album">Album: </label>
         <select
           id="existing-album"
-          value={existingAlbum}
-          disabled={!isExistingAlbum}
-          onChange={(e) => setExistingAlbum(Number(e.target.value))}
+          value={formState.existingAlbum}
+          disabled={!formState.isExistingAlbum}
+          onChange={(e) =>
+            setFormState({
+              ...formState,
+              existingAlbum: Number(e.target.value),
+            })
+          }
         >
           {albums?.map((album: Album) => (
             <option key={album.id} value={album.id}>

@@ -3,7 +3,6 @@ export interface ModalOptions {
   title?: string;
   content: ReactNode;
   footer?: ReactNode;
-  onClose?: () => void;
 }
 
 export interface ModalContextType {
@@ -12,8 +11,6 @@ export interface ModalContextType {
   closeModal: () => void;
   content: ReactNode;
   title?: string;
-  footer?: ReactNode;
-  onClose?: () => void;
 }
 
 export const ModalContext = createContext<ModalContextType | undefined>(
@@ -25,14 +22,12 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   const [content, setContent] = useState<ReactNode>(null);
   const [title, setTitle] = useState<string | undefined>(undefined);
-  const [footer, setFooter] = useState<ReactNode | undefined>(undefined);
 
   const [onClose, setOnClose] = useState<(() => void) | undefined>(undefined);
 
-  const openModal = ({ title, content, footer, onClose }: ModalOptions) => {
+  const openModal = ({ title, content }: ModalOptions) => {
     setTitle(title);
     setContent(content);
-    setFooter(footer);
     setIsOpen(true);
     setOnClose(() => onClose);
   };
@@ -46,10 +41,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       closeModal,
       content,
       title,
-      footer,
-      onClose,
     }),
-    [isOpen, content, title, footer, onClose],
+    [isOpen, content, title],
   );
 
   return (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DeleteIcon } from '../../shared/assets/icons/DeleteIcon';
 import { IconButton } from '../../shared/components/IconButton/IconButton';
@@ -18,8 +18,14 @@ export function Album() {
   const { apiState, setApiState } = useContext(ApiContext);
   const { openAlert } = useAlert();
 
-  const { data: photos, isLoading } = useLoadData<Photo[]>(['photos'], () =>
-    fetchPhotosService(Number(albumId)),
+  const fetchPhotos = useCallback(
+    () => fetchPhotosService(Number(albumId)),
+    [albumId],
+  );
+
+  const { data: photos, isLoading } = useLoadData<Photo[]>(
+    ['photos'],
+    fetchPhotos,
   );
 
   const myOwnPage = useAuth(userId);
@@ -46,6 +52,7 @@ export function Album() {
   };
 
   const [photosToShow, setPhotosToShow] = useState<Photo[]>([]);
+
   useEffect(() => {
     if (photos) {
       setPhotosToShow([
@@ -59,7 +66,7 @@ export function Album() {
         ),
       ]);
     }
-  }, [photos, apiState.deletedPhotos, apiState.addedPhotos]);
+  }, [photos, albumId, apiState.deletedPhotos, apiState.addedPhotos]);
 
   if (isLoading) {
     return (

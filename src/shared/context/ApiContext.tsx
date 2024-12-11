@@ -9,7 +9,7 @@ export interface FakeApiState {
   deletedAlbums: number[];
 }
 
-interface FakeApiContextValue {
+export interface FakeApiContextValue {
   apiState: FakeApiState;
   setApiState: React.Dispatch<React.SetStateAction<FakeApiState>>;
 }

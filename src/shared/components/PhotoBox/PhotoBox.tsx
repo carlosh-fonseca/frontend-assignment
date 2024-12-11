@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
+import { User } from '../../../views/albums/api/AlbumsService';
 
 export function PhotoBox({
   src,
   alt,
   caption,
-  authorName,
-  authorUsername,
-  authorId,
+  author,
   actions,
   ...rest
 }: PhotoBoxProps) {
@@ -17,19 +16,21 @@ export function PhotoBox({
       {...rest}
     >
       <div className="img-wrapper w-full bg-white m-auto md:w-full">
-        <img
-          src={src}
-          alt={alt}
-          title={caption}
-          className="w-full md:w-full"
-          loading="lazy"
-        />
+        <object data="https://via.placeholder.com/600/cccccc" type="image/png">
+          <img
+            src={src}
+            alt={alt}
+            title={caption}
+            className="w-full md:w-full"
+            loading="lazy"
+          />{' '}
+        </object>
       </div>
-      {(!!authorName || !!authorUsername) && (
+      {(!!author?.name || !!author?.username) && (
         <div className="caption-wrapper my-2 flex flex-row">
-          <p className="text-sm font-bold text-left">{authorName}</p>
-          <NavLink to={`users/${authorId}`}>
-            <p className="text-sm font-bold text-left">{`(@${authorUsername})`}</p>
+          <p className="text-sm font-bold text-left">{author?.name}</p>
+          <NavLink to={`users/${author?.id}`}>
+            <p className="text-sm font-bold text-left">{`(@${author?.username})`}</p>
           </NavLink>
         </div>
       )}
@@ -45,8 +46,6 @@ interface PhotoBoxProps {
   src: string;
   alt: string;
   caption: string;
-  authorName?: string;
-  authorUsername?: string;
-  authorId?: number;
+  author?: User;
   actions?: ReactNode;
 }

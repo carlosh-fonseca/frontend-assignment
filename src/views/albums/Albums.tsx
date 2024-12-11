@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { DeleteIcon } from '../../shared/assets/icons/DeleteIcon';
 import { IconButton } from '../../shared/components/IconButton/IconButton';
 import { PhotoBox } from '../../shared/components/PhotoBox/PhotoBox';
 import { ListSkeleton } from '../../shared/components/Skeleton/Skeleton';
-import { ApiContext } from '../../shared/context/ApiContext';
+import { ApiContext, FakeApiState } from '../../shared/context/ApiContext';
 import { useAlert } from '../../shared/hooks/useAlert';
 import { useAuth } from '../../shared/hooks/useAuth';
 import { useLoadData } from '../../shared/hooks/useLoadData';
@@ -29,14 +29,19 @@ export function Albums() {
   const { albums, user } = userAlbums || ({} as UserAlbums);
 
   const [albumsToShow, setAlbumsToShow] = useState<Album[]>([]);
+
+  const getFilteredAlbums = (albums: Album[], apiState: FakeApiState) => {
+    return [
+      ...apiState.addedAlbums.filter(
+        (album) => !apiState.deletedAlbums.includes(album.id),
+      ),
+      ...albums.filter((album) => !apiState.deletedAlbums.includes(album.id)),
+    ];
+  };
+
   useEffect(() => {
     if (albums) {
-      setAlbumsToShow([
-        ...apiState.addedAlbums.filter(
-          (album) => !apiState.deletedAlbums.includes(album.id),
-        ),
-        ...albums.filter((album) => !apiState.deletedAlbums.includes(album.id)),
-      ]);
+      setAlbumsToShow(getFilteredAlbums(albums, apiState));
     }
   }, [userAlbums, apiState.deletedAlbums, apiState.addedAlbums]);
 
@@ -55,13 +60,13 @@ export function Albums() {
 
   const myOwnPage = useAuth(userId);
 
-  const handleDeleteAlbum = (
-    e: React.MouseEvent<HTMLElement>,
-    albumId: number,
-  ) => {
-    e.preventDefault();
-    deleteAlbum(albumId);
-  };
+  const handleDeleteAlbum = useCallback(
+    (e: React.MouseEvent<HTMLElement>, albumId: number) => {
+      e.preventDefault();
+      deleteAlbum(albumId);
+    },
+    [deleteAlbum],
+  );
 
   if (isLoading) {
     return (
