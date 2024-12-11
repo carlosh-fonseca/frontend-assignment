@@ -17,7 +17,13 @@ export function PhotoBox({
       {...rest}
     >
       <div className="img-wrapper w-full bg-white m-auto md:w-full">
-        <img src={src} alt={alt} title={caption} className="w-full md:w-full" />
+        <img
+          src={src}
+          alt={alt}
+          title={caption}
+          className="w-full md:w-full"
+          loading="lazy"
+        />
       </div>
       {(!!authorName || !!authorUsername) && (
         <div className="caption-wrapper my-2 flex flex-row">

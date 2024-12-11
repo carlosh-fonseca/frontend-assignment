@@ -3,6 +3,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import { DeleteIcon } from '../../shared/assets/icons/DeleteIcon';
 import { IconButton } from '../../shared/components/IconButton/IconButton';
 import { PhotoBox } from '../../shared/components/PhotoBox/PhotoBox';
+import { ListSkeleton } from '../../shared/components/Skeleton/Skeleton';
 import { ApiContext } from '../../shared/context/ApiContext';
 import { useAlert } from '../../shared/hooks/useAlert';
 import { useAuth } from '../../shared/hooks/useAuth';
@@ -63,13 +64,24 @@ export function Albums() {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <>
+        <header>
+          <h1 className="text-center mt-4">
+            {myOwnPage ? 'My Albums' : `${user?.username} Albums`}
+          </h1>
+        </header>
+        <div className="flex flex-wrap gap-8 mt-4 flex-col md:flex-row">
+          <ListSkeleton numberElements={12} />
+        </div>
+      </>
+    );
   }
 
   return (
     <>
       <header>
-        <h1 className="text-center">
+        <h1 className="text-center mt-4">
           {myOwnPage ? 'My Albums' : `${user?.username} Albums`}
         </h1>
       </header>

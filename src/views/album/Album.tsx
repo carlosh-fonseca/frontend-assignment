@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { DeleteIcon } from "../../shared/assets/icons/DeleteIcon";
-import { IconButton } from "../../shared/components/IconButton/IconButton";
-import { PhotoBox } from "../../shared/components/PhotoBox/PhotoBox";
-import { ApiContext } from "../../shared/context/ApiContext";
-import { useAlert } from "../../shared/hooks/useAlert";
-import { useAuth } from "../../shared/hooks/useAuth";
-import { useLoadData } from "../../shared/hooks/useLoadData";
-import { useSendData } from "../../shared/hooks/useSendData";
-import { Photo } from "../feed/Feed";
-import { deletePhotoService, fetchPhotosService } from "./api/AlbumService";
+import { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { DeleteIcon } from '../../shared/assets/icons/DeleteIcon';
+import { IconButton } from '../../shared/components/IconButton/IconButton';
+import { PhotoBox } from '../../shared/components/PhotoBox/PhotoBox';
+import { ListSkeleton } from '../../shared/components/Skeleton/Skeleton';
+import { ApiContext } from '../../shared/context/ApiContext';
+import { useAlert } from '../../shared/hooks/useAlert';
+import { useAuth } from '../../shared/hooks/useAuth';
+import { useLoadData } from '../../shared/hooks/useLoadData';
+import { useSendData } from '../../shared/hooks/useSendData';
+import { Photo } from '../feed/Feed';
+import { deletePhotoService, fetchPhotosService } from './api/AlbumService';
 
 export function Album() {
   const { userId, albumId } = useParams<{ userId: string; albumId: string }>();
@@ -17,8 +18,8 @@ export function Album() {
   const { apiState, setApiState } = useContext(ApiContext);
   const { openAlert } = useAlert();
 
-  const { data: photos } = useLoadData<Photo[]>(["photos"], () =>
-    fetchPhotosService(Number(albumId))
+  const { data: photos, isLoading } = useLoadData<Photo[]>(['photos'], () =>
+    fetchPhotosService(Number(albumId)),
   );
 
   const myOwnPage = useAuth(userId);
@@ -31,14 +32,14 @@ export function Album() {
           ...currentState,
           deletedPhotos: [...currentState.deletedPhotos, String(deletedPhoto!)],
         }));
-      openAlert({ message: "Photo deleted" });
+      openAlert({ message: 'Photo deleted' });
     },
-    () => openAlert({ message: "Failed to delete photo", type: "error" })
+    () => openAlert({ message: 'Failed to delete photo', type: 'error' }),
   );
 
   const handleDeletePhoto = (
     e: React.MouseEvent<HTMLElement>,
-    photoId: string
+    photoId: string,
   ) => {
     e.preventDefault();
     deletePhoto(photoId);
@@ -51,14 +52,22 @@ export function Album() {
         ...apiState.addedPhotos.filter(
           (photo) =>
             photo.albumId === Number(albumId) &&
-            !apiState.deletedPhotos.includes(String(photo.id))
+            !apiState.deletedPhotos.includes(String(photo.id)),
         ),
         ...photos.filter(
-          (photo) => !apiState.deletedPhotos.includes(String(photo.id))
+          (photo) => !apiState.deletedPhotos.includes(String(photo.id)),
         ),
       ]);
     }
   }, [photos, apiState.deletedPhotos, apiState.addedPhotos]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-wrap gap-8 mt-4 flex-col md:flex-row">
+        <ListSkeleton numberElements={12} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-wrap gap-8 mt-4 flex-col md:flex-row">
