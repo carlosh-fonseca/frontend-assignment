@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { HomeIcon } from "../../assets/icons/HomeIcon";
-import { IconButton } from "./IconButton";
+import { Meta, StoryObj } from '@storybook/react';
+import { HomeIcon } from '../../assets/icons/HomeIcon';
+import { IconButton } from './IconButton';
 
 const meta = {
-  title: "Components/IconButton",
+  title: 'Components/IconButton',
   component: IconButton,
 } satisfies Meta<typeof IconButton>;
 
@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    title: "Home",
+    title: 'Home',
     icon: <HomeIcon />,
   },
 };

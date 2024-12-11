@@ -1,4 +1,4 @@
-import { httpClient } from "../../../core/axios/axios";
+import { httpClient } from '../../../core/axios/axios';
 
 interface AlbumResponse {
   id: number;
@@ -18,6 +18,10 @@ interface AlbumResponse {
 
 export const fetchAlbumsRepository = async (userId: number) => {
   return await httpClient.get<AlbumResponse[]>(
-    `users/${userId}/albums?_embed=photos`
+    `users/${userId}/albums?_embed=photos&_expand=user`,
   );
+};
+
+export const deleteAlbumRepository = async (albumId: number) => {
+  return await httpClient.delete(`albums/${albumId}`);
 };

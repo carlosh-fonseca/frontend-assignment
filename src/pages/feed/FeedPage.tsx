@@ -1,5 +1,5 @@
-import { Feed } from "../../views/feed/Feed";
-import { ContentLayout } from "../contentLayout/ContentLayout";
+import { Feed } from '../../views/feed/Feed';
+import { ContentLayout } from '../contentLayout/ContentLayout';
 
 export function FeedPage() {
   return (

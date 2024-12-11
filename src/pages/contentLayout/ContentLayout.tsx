@@ -6,11 +6,9 @@ export function ContentLayout({
   children?: JSX.Element;
 }) {
   return (
-    <div>
-      <header>
-        <h1 className="text-center">{title}</h1>
-        <main>{children}</main>
-      </header>
-    </div>
+    <header>
+      <h1 className="text-center">{title}</h1>
+      <main>{children}</main>
+    </header>
   );
 }

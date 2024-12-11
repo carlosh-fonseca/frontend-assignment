@@ -1,15 +1,19 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App.tsx";
-import "./index.css";
-import { pages } from "./pages/index.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, NavLink, RouterProvider } from 'react-router-dom';
+import App from './App.tsx';
+import './index.css';
+import { pages } from './pages/index.tsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
-    errorElement: null,
+    errorElement: (
+      <div>
+        Pagina não enontrada <NavLink to="/">Voltaar para o Feed</NavLink>
+      </div>
+    ),
     children: [
       ...pages.map((page) => ({
         path: page.path,
@@ -19,8 +23,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );

@@ -1,6 +1,7 @@
-import { albumConfig } from "./album";
-import { albumsConfig } from "./albums";
-import { feedConfig } from "./feed";
+import { addPhotoConfig } from './addPhoto';
+import { albumConfig } from './album';
+import { feedConfig } from './feed';
+import { userConfig } from './user';
 
 export interface PageConfig {
   component: JSX.Element;
@@ -9,4 +10,9 @@ export interface PageConfig {
   path: string;
 }
 
-export const pages: PageConfig[] = [albumsConfig, feedConfig, albumConfig];
+export const pages: PageConfig[] = [
+  feedConfig,
+  albumConfig,
+  userConfig,
+  addPhotoConfig,
+];

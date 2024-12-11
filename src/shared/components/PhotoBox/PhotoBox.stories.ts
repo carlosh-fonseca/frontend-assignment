@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { PhotoBox } from "./PhotoBox";
+import { Meta, StoryObj } from '@storybook/react';
+import { PhotoBox } from './PhotoBox';
 
 const meta = {
-  title: "Components/PhotoBox",
+  title: 'Components/PhotoBox',
   component: PhotoBox,
 } satisfies Meta<typeof PhotoBox>;
 
@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    src: "true",
-    alt: "Button",
+    src: 'true',
+    alt: 'Button',
   },
 };

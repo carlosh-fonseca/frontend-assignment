@@ -1,4 +1,4 @@
-import { PhotoBox } from "../PhotoBox/PhotoBox";
+import { PhotoBox } from '../PhotoBox/PhotoBox';
 
 export function Album({ photos, ...rest }: AlbumProps) {
   return (

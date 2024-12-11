@@ -1,5 +1,5 @@
-import { Album } from "../../views/album/CAlbum";
-import { ContentLayout } from "../contentLayout/ContentLayout";
+import { Album } from '../../views/album/album';
+import { ContentLayout } from '../contentLayout/ContentLayout';
 
 export function AlbumPage() {
   return (

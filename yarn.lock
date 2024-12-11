@@ -1237,15 +1237,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-js@npm:^2.11.0":
-  version: 2.11.0
-  resolution: "@stylistic/eslint-plugin-js@npm:2.11.0"
+"@stylistic/eslint-plugin-js@npm:^2.12.1":
+  version: 2.12.1
+  resolution: "@stylistic/eslint-plugin-js@npm:2.12.1"
   dependencies:
     eslint-visitor-keys: "npm:^4.2.0"
     espree: "npm:^10.3.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10c0/b8b8d19b89ccec51fee7f394be5a7f3551919e6141e1751bfe7a2f0f279919c576dc266d75290f062c2e65024841abb6c9cbdc3a0233503bd02b366e5371b61c
+  checksum: 10c0/f0941e97098b85414ddf372c37e8b034c1e742956a9bad98ae936750b99bf0832f53da84a6926ac20bbe4e2b34573d394a5941cc98792f451b55936d413a954d
   languageName: node
   linkType: hard
 
@@ -3069,7 +3069,7 @@ __metadata:
     "@storybook/react": "npm:8.4.7"
     "@storybook/react-vite": "npm:8.4.7"
     "@storybook/test": "npm:8.4.7"
-    "@stylistic/eslint-plugin-js": "npm:^2.11.0"
+    "@stylistic/eslint-plugin-js": "npm:^2.12.1"
     "@tanstack/react-query": "npm:^5.62.3"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"

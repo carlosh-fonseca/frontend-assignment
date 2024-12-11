@@ -1,5 +1,5 @@
-import { Photo } from "../Feed";
-import { getPhotosRepository } from "./FeedRepository";
+import { Photo } from '../Feed';
+import { getPhotosRepository } from './FeedRepository';
 
 export const getPhotosService = async (): Promise<Photo[]> => {
   const { data } = await getPhotosRepository();
@@ -18,7 +18,7 @@ export const getPhotosService = async (): Promise<Photo[]> => {
               name: album.user.name,
               username: album.user.username,
             },
-          }) as Photo
+          }) as Photo,
       ),
     ];
   }, [] as Photo[]);

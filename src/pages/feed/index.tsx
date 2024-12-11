@@ -1,8 +1,8 @@
-import { FeedPage } from "./FeedPage";
+import { FeedPage } from './FeedPage';
 
 export const feedConfig = {
   component: <FeedPage />,
-  name: "Feed",
-  id: "feed",
-  path: "/",
+  name: 'Feed',
+  id: 'feed',
+  path: '/',
 };

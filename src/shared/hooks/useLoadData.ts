@@ -3,12 +3,12 @@ import {
   QueryKey,
   useQuery,
   UseQueryResult,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
-export function useLoadDados<T>(
+export function useLoadData<T>(
   key: QueryKey,
   fn: QueryFunction,
-  options?: object
+  options?: object,
 ): UseQueryResult<T> {
   return useQuery({
     queryKey: key,
