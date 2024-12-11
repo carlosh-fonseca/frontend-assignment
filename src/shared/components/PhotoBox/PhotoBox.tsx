@@ -16,12 +16,17 @@ export function PhotoBox({
       {...rest}
     >
       <div className="img-wrapper w-full bg-white m-auto md:w-full">
-        <object data="https://via.placeholder.com/600/cccccc" type="image/png">
+        <object
+          data="https://via.placeholder.com/600/cccccc"
+          type="image/png"
+          className="w-full"
+          aria-label={alt}
+        >
           <img
             src={src}
             alt={alt}
             title={caption}
-            className="w-full md:w-full"
+            className="w-full"
             loading="lazy"
           />{' '}
         </object>
