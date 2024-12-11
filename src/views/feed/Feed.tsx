@@ -29,7 +29,6 @@ export function Feed() {
   const handleScroll = () => {
     if (window.scrollY > document.body.scrollHeight - 1000) {
       setNextPage(true);
-      console.log('bbbb');
     }
   };
 
