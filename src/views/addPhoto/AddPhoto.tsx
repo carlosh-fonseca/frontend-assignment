@@ -44,6 +44,7 @@ export function AddPhoto() {
               id: res.id,
               title: res.title,
               url: res.url,
+              thumbnailUrl: res.url,
             },
             ...currentState.addedPhotos,
           ],

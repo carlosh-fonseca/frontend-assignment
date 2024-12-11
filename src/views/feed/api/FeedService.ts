@@ -1,29 +1,24 @@
 import { Photo } from '../Feed';
-import { getPhotosRepository } from './FeedRepository';
+import { getPhotosRepository, getUsersRepository } from './FeedRepository';
 
-export const getPhotosService = async (): Promise<Photo[]> => {
-  const { data } = await getPhotosRepository();
-  const feedArray = data.reduce((acc, album) => {
-    return [
-      ...acc,
-      ...album.photos.map(
-        (photo) =>
-          ({
-            id: `${album.id}-${photo.id}`,
-            url: photo.url,
-            title: photo.title,
-            thumbnailUrl: photo.thumbnailUrl,
-            albumId: album.id,
-            user: {
-              id: album.user.id,
-              name: album.user.name,
-              username: album.user.username,
-            },
-          }) as Photo,
-      ),
-    ];
-  }, [] as Photo[]);
-  return shuffle(feedArray).slice(0, 100);
+export const getPhotosService = async ({
+  page,
+}: {
+  page: number;
+}): Promise<Photo[]> => {
+  const { data: photos } = await getPhotosRepository(page);
+  const { data: users } = await getUsersRepository();
+
+  const feedArray = photos.map((photo) => ({
+    id: `${photo.id}`,
+    url: photo.url,
+    title: photo.title,
+    thumbnailUrl: photo.thumbnailUrl,
+    albumId: photo.albumId,
+    user: users.find((user) => user.id === photo.albumId),
+  }));
+
+  return shuffle(feedArray);
 };
 
 const shuffle = (array: Photo[]) => {

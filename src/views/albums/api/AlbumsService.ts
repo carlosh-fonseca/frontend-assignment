@@ -8,12 +8,14 @@ export interface Album {
   title: string;
   coverPhoto: string;
 }
+
+export interface User {
+  id: number;
+  name: string;
+  username: string;
+}
 export interface UserAlbums {
-  user: {
-    id: number;
-    name: string;
-    username: string;
-  };
+  user: User;
   albums: Album[];
 }
 
