@@ -3,7 +3,7 @@ import { useLoadData } from '../../shared/hooks/useLoadData';
 import { getPhotosService } from './api/FeedService';
 
 export interface Photo {
-  id: number;
+  id: string;
   url: string;
   title: string;
   albumId: number;

@@ -5,6 +5,6 @@ export const fetchPhotosRepository = async (albumId: number) => {
   return await httpClient.get<Photo[]>(`albums/${albumId}/photos`);
 };
 
-export const deletePhotoRepository = async (photoId: number) => {
+export const deletePhotoRepository = async (photoId: string) => {
   return await httpClient.delete(`photos/${photoId}`);
 };

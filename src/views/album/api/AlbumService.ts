@@ -10,7 +10,7 @@ export const fetchPhotosService = async (albumId: number): Promise<Photo[]> => {
   return data;
 };
 
-export const deletePhotoService = async (photoId: number) => {
+export const deletePhotoService = async (photoId: string) => {
   try {
     await deletePhotoRepository(photoId);
     return photoId;

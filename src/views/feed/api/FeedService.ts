@@ -13,6 +13,7 @@ export const getPhotosService = async (): Promise<Photo[]> => {
             url: photo.url,
             title: photo.title,
             thumbnailUrl: photo.thumbnailUrl,
+            albumId: album.id,
             user: {
               id: album.user.id,
               name: album.user.name,

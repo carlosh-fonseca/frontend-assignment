@@ -1,4 +1,4 @@
-import { Album } from '../../views/album/album';
+import { Album } from '../../views/album/Album';
 import { ContentLayout } from '../contentLayout/ContentLayout';
 
 export function AlbumPage() {

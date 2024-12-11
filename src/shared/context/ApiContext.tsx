@@ -4,7 +4,7 @@ import { Photo } from '../../views/feed/Feed';
 
 export interface FakeApiState {
   addedPhotos: Photo[];
-  deletedPhotos: number[];
+  deletedPhotos: string[];
   addedAlbums: Album[];
   deletedAlbums: number[];
 }

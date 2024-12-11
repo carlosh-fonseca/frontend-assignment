@@ -38,7 +38,7 @@ export function Album() {
 
   const handleDeletePhoto = (
     e: React.MouseEvent<HTMLElement>,
-    photoId: number,
+    photoId: string,
   ) => {
     e.preventDefault();
     deletePhoto(photoId);
@@ -51,9 +51,11 @@ export function Album() {
         ...apiState.addedPhotos.filter(
           (photo) =>
             photo.albumId === Number(albumId) &&
-            !apiState.deletedPhotos.includes(photo.id),
+            !apiState.deletedPhotos.includes(String(photo.id)),
         ),
-        ...photos.filter((photo) => !apiState.deletedPhotos.includes(photo.id)),
+        ...photos.filter(
+          (photo) => !apiState.deletedPhotos.includes(String(photo.id)),
+        ),
       ]);
     }
   }, [photos, apiState.deletedPhotos, apiState.addedPhotos]);

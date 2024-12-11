@@ -12,6 +12,7 @@ export interface UserAlbums {
   user: {
     id: number;
     name: string;
+    username: string;
   };
   albums: Album[];
 }
