@@ -8,15 +8,18 @@ export function PhotoBox({
   caption,
   author,
   actions,
+  'data-testid': dataTestId,
   ...rest
 }: PhotoBoxProps) {
   return (
     <div
       className="photo-box bg-slate-100 flex flex-col py-4 px-2 rounded-lg"
+      data-testid={`${dataTestId}-wrapper`}
       {...rest}
     >
       <div className="img-wrapper w-full bg-white m-auto md:w-full">
         <img
+          data-testid={`${dataTestId}-img`}
           src={src}
           alt={alt}
           aria-label={alt}
@@ -26,9 +29,20 @@ export function PhotoBox({
         />{' '}
       </div>
       {(!!author?.name || !!author?.username) && (
-        <div className="caption-wrapper my-2 flex flex-row">
-          <p className="text-sm font-bold text-left">{author?.name}</p>
-          <NavLink to={`users/${author?.id}`}>
+        <div
+          className="caption-wrapper my-2 flex flex-row"
+          data-testid={`${dataTestId}-author`}
+        >
+          <p
+            className="text-sm font-bold text-left"
+            data-testid={`${dataTestId}-author-name`}
+          >
+            {author?.name}
+          </p>
+          <NavLink
+            to={`users/${author?.id}`}
+            data-testid={`${dataTestId}-author-username`}
+          >
             <p className="text-sm font-bold text-left">{`(@${author?.username})`}</p>
           </NavLink>
         </div>
@@ -47,4 +61,5 @@ interface PhotoBoxProps {
   caption: string;
   author?: User;
   actions?: ReactNode;
+  'data-testid'?: string;
 }

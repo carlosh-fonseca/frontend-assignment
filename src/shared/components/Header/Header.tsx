@@ -19,10 +19,13 @@ export function Header() {
 
   return (
     <div className="sticky flex flex-row p-4 top-0 left-0 right-0 gap-4 bg-slate-400 w-screen h-16">
-      <NavLink to={'/'}>
+      <NavLink to={'/'} data-testid="feed-button">
         <IconButton icon={<HomeIcon />} title="Feed" />
       </NavLink>
-      <div className="title-wrapper grow text-center font-bold text-xl">
+      <div
+        className="title-wrapper grow text-center font-bold text-xl"
+        data-testid="header-title"
+      >
         MyPhotoShoot
       </div>
 
@@ -30,8 +33,9 @@ export function Header() {
         icon={<AddPhotoIcon />}
         title="Add Photo"
         onClick={handleAddPhotoClick}
+        data-testid="add-photo-button"
       />
-      <NavLink to={'/users/1'}>
+      <NavLink to={'/users/1'} data-testid="my-albums-button">
         <IconButton icon={<PhotoAlbumsIcon />} title="My Albums" />
       </NavLink>
     </div>

@@ -86,7 +86,7 @@ export function Albums() {
   return (
     <>
       <header>
-        <h1 className="text-center mt-4">
+        <h1 className="text-center mt-4" data-testid="albums-title">
           {myOwnPage ? 'My Albums' : `${user?.username} Albums`}
         </h1>
       </header>
@@ -102,11 +102,13 @@ export function Albums() {
               src={album.coverPhoto}
               alt={album.title}
               caption={album.title}
+              data-testid={`album-box-${album.id}`}
               actions={
                 myOwnPage && (
                   <IconButton
                     icon={<DeleteIcon />}
                     title="Delete"
+                    data-testid={`album-box-delete-icon-${album.id}`}
                     onClick={(e: React.MouseEvent<HTMLElement>) =>
                       handleDeleteAlbum(e, album.id)
                     }

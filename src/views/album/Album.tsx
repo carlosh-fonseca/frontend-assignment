@@ -90,6 +90,7 @@ export function Album() {
                 <IconButton
                   icon={<DeleteIcon />}
                   title="Delete"
+                  data-testid={`photo-box-delete-icon-${photo.id}`}
                   onClick={(e: React.MouseEvent<HTMLElement>) =>
                     handleDeletePhoto(e, photo.id)
                   }

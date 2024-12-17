@@ -69,6 +69,7 @@ export function Feed() {
             src={photo.url}
             alt={photo.title}
             caption={photo.title}
+            data-testid={`photo-box-${photo.id}`}
             author={
               photo.user
                 ? {
